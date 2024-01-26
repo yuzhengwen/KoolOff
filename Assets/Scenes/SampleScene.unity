@@ -306,7 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36453f8e1da790948b928e9e0fc179a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 0}
+  tilemap: {fileID: 1520243185}
 --- !u!483693784 &1520243184
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -1556,7 +1556,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f623e7c8d11f5b4f93dd79979bacd08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilesManager: {fileID: 0}
+  tilesManager: {fileID: 1520243183}
   terrain:
     serializedVersion: 2
     m_Bits: 4294967295

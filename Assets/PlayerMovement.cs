@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
         //{
         //    Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         //    Vector3Int tilePos = tilesManager.tilemap.WorldToCell(mousePos);
-        //    tilesManager.destroyTile(tilePos);
+        //    tilesManager.DestroyTile(tilePos);
         //    Debug.Log("Tile destroyed at " + tilePos);
         //}
         GetTileBelowPlayer();
@@ -58,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Tile below player: " + tilePos); 
         tilesManager.tilemap.SetTileFlags(tilePos, TileFlags.None);
         tilesManager.tilemap.SetColor(tilePos, Color.red);
+        tilesManager.DestroyTileDelayed(tilePos);
         return tilePos;
     }
 }

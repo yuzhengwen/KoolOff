@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,12 +17,22 @@ public class TilesManager : MonoBehaviour
     {
         
     }
-    public void destroyTile(Vector3Int pos)
+    public void DestroyTile(Vector3Int pos)
     {
         Tile tile = tilemap.GetTile<Tile>(pos);
         if (tile != null)
         {
             tilemap.SetTile(pos, null);
         }
+    }
+    public void DestroyTileDelayed(Vector3Int pos, float delay = 1.0f)
+    {
+        StartCoroutine(DestroyTileCo(pos, delay));
+    }
+
+    IEnumerator DestroyTileCo(Vector3Int pos, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        DestroyTile(pos);
     }
 }
