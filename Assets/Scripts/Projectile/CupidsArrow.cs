@@ -5,16 +5,17 @@ using UnityEngine;
 public class CupidsArrow : MonoBehaviour
 {
     private Vector3 direction;
-    [SerializeField] private float speed = 8f;
-    void Start()
+    [SerializeField] private float speed = 0.6f;
+    private void Start()
     {
+        //direction = (transform.rotation * transform.up).normalized;
         direction = transform.up;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.Translate(direction * Time.deltaTime * speed);
+        transform.Translate(speed * Time.deltaTime * direction);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

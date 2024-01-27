@@ -8,8 +8,10 @@ public class Heart : MonoBehaviour, ICollectible
     public static event Action<ICollectible> OnCollected;
     [SerializeField] private ItemSO itemSO;
     [SerializeField] private GameObject cupidsArrowPrefab;
-    public void OnCollect()
+    private RotatingAim rotatingAim;
+    public void OnCollect(GameObject player)
     {
+        rotatingAim = player.GetComponentInChildren<RotatingAim>();
         OnCollected?.Invoke(this);
         Destroy(gameObject);
     }
@@ -20,6 +22,6 @@ public class Heart : MonoBehaviour, ICollectible
     public void Use()
     {
         Debug.Log($"Used {itemSO.abilityName}");
-        GameObject arrow = Instantiate(cupidsArrowPrefab, transform.position, Quaternion.identity);
+        GameObject arrow = Instantiate(cupidsArrowPrefab, rotatingAim.transform.position, rotatingAim.GetRotation());
     }
 }

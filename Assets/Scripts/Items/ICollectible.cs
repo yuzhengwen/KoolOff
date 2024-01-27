@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface ICollectible 
 {
-    public void OnCollect();
+    public void OnCollect(GameObject player);
     public void Use();
 
     public ItemSO GetItemSO();

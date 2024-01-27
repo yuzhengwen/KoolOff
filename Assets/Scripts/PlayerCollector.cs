@@ -27,7 +27,7 @@ public class PlayerCollector : MonoBehaviour
         ICollectible collectible = collision.GetComponent<ICollectible>();
         if (collectible != null)
         {
-            collectible.OnCollect();
+            collectible.OnCollect(gameObject);
         }
     }
 }

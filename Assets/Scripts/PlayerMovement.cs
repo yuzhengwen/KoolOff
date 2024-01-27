@@ -7,9 +7,7 @@ using UnityEngine.Tilemaps;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private int movementForce = 2;
-    private float maxSpeed = 5;
-    private float speed = 3;
+    private float speed = 2;
     private Vector3Int tilePos;
 
     [SerializeField] private TilesManager tilesManager;
@@ -34,8 +32,6 @@ public class PlayerMovement : MonoBehaviour
             playersManager.SetPlayerDead(gameObject);
         else
         {
-            //tilesManager.tilemap.SetTileFlags(tilePos, TileFlags.None);
-            //tilesManager.tilemap.SetColor(tilePos, Color.red);
             tilesManager.DestroyTileDelayed(tilePos);
         }
     }

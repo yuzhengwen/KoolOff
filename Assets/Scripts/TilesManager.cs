@@ -1,14 +1,12 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class TilesManager : MonoBehaviour
 {
     public Tilemap tilemap;
-    [SerializeField] private TileBase crackedTile;
+    [SerializeField] private TileBase crackedTile1;
+    [SerializeField] private TileBase crackedTile2;
     [SerializeField] private TileBase normalTile;
     private void Awake()
     {
@@ -23,10 +21,13 @@ public class TilesManager : MonoBehaviour
     IEnumerator DestroyTileCo(Vector3Int pos, float delay)
     {
         Tile tile = tilemap.GetTile<Tile>(pos);
-        tilemap.SetTile(pos, crackedTile);
+        tilemap.SetTile(pos, crackedTile1);
+        tilemap.RefreshTile(pos);
+        yield return new WaitForSeconds(delay / 2);
+        tilemap.SetTile(pos, crackedTile2);
         tilemap.RefreshTile(pos);
 
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(delay/2);
         DestroyTile(pos);
     }
     public void DestroyTile(Vector3Int pos)

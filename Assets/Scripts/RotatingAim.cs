@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class RotatingAim : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private GameObject player;
+    private float speed = 200f;
+    private void Start()
     {
-        
+        player = transform.parent.gameObject;
     }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        transform.RotateAround(player.transform.position, Vector3.forward, speed * Time.deltaTime);
+    }
+    public Quaternion GetRotation()
+    {
+        return transform.rotation;
     }
 }
