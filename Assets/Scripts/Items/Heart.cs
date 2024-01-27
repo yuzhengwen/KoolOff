@@ -21,7 +21,6 @@ public class Heart : MonoBehaviour, ICollectible
     }
     public void Use()
     {
-        Debug.Log($"Used {itemSO.abilityName}");
         GameObject arrow = Instantiate(cupidsArrowPrefab, rotatingAim.transform.position, rotatingAim.GetRotation());
     }
 }

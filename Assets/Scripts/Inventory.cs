@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Inventory : MonoBehaviour
 {
@@ -11,13 +12,6 @@ public class Inventory : MonoBehaviour
     {
         items = new();
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            UseItem();
-        }
-    }
 
     public void AddItem(ICollectible item)
     {
@@ -26,8 +20,9 @@ public class Inventory : MonoBehaviour
         items.Enqueue(item);
         uiInventory.UpdateUI(gameObject, this);
     }
-    public void UseItem()
+    public void UseItem(InputAction.CallbackContext ctx)
     {
+        if (!ctx.performed) return;
         if (items.Count > 0)
         {
             ICollectible item = items.Dequeue();

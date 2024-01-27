@@ -16,6 +16,5 @@ public class Feather : MonoBehaviour, ICollectible
     }
     public void Use()
     {
-        Debug.Log($"Used {itemSO.abilityName}");
     }
 }

@@ -6,10 +6,10 @@ public class CupidsArrow : MonoBehaviour
 {
     private Vector3 direction;
     [SerializeField] private float speed = 0.6f;
+    private GameObject player;
     private void Start()
     {
-        //direction = (transform.rotation * transform.up).normalized;
-        direction = transform.up;
+        direction = new Vector3(0, 1, 0);
     }
 
     // Update is called once per frame
@@ -21,7 +21,7 @@ public class CupidsArrow : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<PlayerMovement>().SetDebuff(PlayerDebuff.Tickled);
+            collision.GetComponent<PlayerMovement>().SetDebuff(PlayerDebuff.Tickled, player);
             Destroy(gameObject);
         }
     }
