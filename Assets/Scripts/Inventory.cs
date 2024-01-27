@@ -7,18 +7,37 @@ public class Inventory : MonoBehaviour
 {
     private Queue<ICollectible> items;
     private readonly int maxItems = 2;
-    [SerializeField] private UI_Inventory uiInventory;
-    private void Awake()
+    private UI_Inventory uiInventory;
+    private RotatingAim rotatingAim;
+    private void Start()
     {
         items = new();
+        uiInventory = transform.parent.GetComponent<PlayersManager>().uiInventory;
+        rotatingAim = GetComponentInChildren<RotatingAim>();
+        UpdateRotatingAim();
+    }
+
+    private void UpdateRotatingAim()
+    {
+        if (items.Count > 0)
+        {
+            if (!rotatingAim.isActiveAndEnabled)
+                rotatingAim.gameObject.SetActive(true);
+        }
+        else
+        {
+            if (rotatingAim.isActiveAndEnabled)
+                rotatingAim.gameObject.SetActive(false);
+        }
     }
 
     public void AddItem(ICollectible item)
     {
-        if(items.Count >= maxItems)
+        if (items.Count >= maxItems)
             items.Dequeue();
         items.Enqueue(item);
         uiInventory.UpdateUI(gameObject, this);
+        UpdateRotatingAim();
     }
     public void UseItem(InputAction.CallbackContext ctx)
     {
@@ -33,6 +52,7 @@ public class Inventory : MonoBehaviour
             Debug.Log("No items in inventory");
         }
         uiInventory.UpdateUI(gameObject, this);
+        UpdateRotatingAim();
     }
     public Queue<ICollectible> GetItems()
     {

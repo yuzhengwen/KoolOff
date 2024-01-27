@@ -15,7 +15,7 @@ public class UI_Inventory : MonoBehaviour
     void Start()
     {
         noOfPlayers = playerParent.transform.childCount;
-        Debug.Log(noOfPlayers);
+        Debug.Log(noOfPlayers + " Players");
         InstantiateHUD();
     }
 

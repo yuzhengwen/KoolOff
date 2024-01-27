@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private float speed = 2;
     private Vector3Int tilePos;
 
-    [SerializeField] private TilesManager tilesManager;
+    private TilesManager tilesManager;
     private PlayersManager playersManager;
 
     // debuffs
@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         playersManager = transform.parent.GetComponent<PlayersManager>();
+        tilesManager = playersManager.tilesManager;
     }
 
     void FixedUpdate()
