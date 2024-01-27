@@ -156,6 +156,61 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "Keyboard",
+                    "id": "b518c8d0-b7c8-4414-9480-910764635229",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "11c13553-cc4b-4527-b906-3a5c748f9a61",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard3",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "75b502c1-281c-4282-8e93-7022bca88629",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard3",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "76ac1d3b-56cc-4927-95d7-8d90a5ce4152",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard3",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "63dc7adc-bf69-44b0-97bf-162a805c90f1",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard3",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "69727c60-5671-4303-8028-a76bf9123400",
                     "path": "<Keyboard>/e",
@@ -173,6 +228,17 @@
                     "interactions": "Press",
                     "processors": "",
                     "groups": "Keyboard2",
+                    "action": "UseItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8cc869b9-21b0-4c85-927d-60cc6b571256",
+                    "path": "<Keyboard>/6",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard3",
                     "action": "UseItem",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -220,6 +286,17 @@
                     "action": "Counter",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dc83fee6-ec79-4a3f-b544-90dfa30f096d",
+                    "path": "<Keyboard>/4",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard3",
+                    "action": "Counter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
@@ -239,6 +316,17 @@
         {
             "name": "Keyboard2",
             "bindingGroup": "Keyboard2",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Keyboard3",
+            "bindingGroup": "Keyboard3",
             "devices": [
                 {
                     "devicePath": "<Keyboard>",

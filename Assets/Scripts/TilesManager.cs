@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -8,6 +9,7 @@ public class TilesManager : MonoBehaviour
     [SerializeField] private TileBase crackedTile1;
     [SerializeField] private TileBase crackedTile2;
     [SerializeField] private TileBase normalTile;
+    public List<Vector3Int> tileWorldLocations;
     private void Awake()
     {
         tilemap = GetComponent<Tilemap>();
@@ -48,5 +50,19 @@ public class TilesManager : MonoBehaviour
     {
         tilemap.SetTile(pos, normalTile);
         tilemap.RefreshTile(pos);
+    }
+    public Vector3Int getRandomTileLocation()
+    {
+        tileWorldLocations = new List<Vector3Int>();
+        foreach (var pos in tilemap.cellBounds.allPositionsWithin)
+        {
+            Vector3Int localPlace = new Vector3Int(pos.x, pos.y, pos.z);
+            if (tilemap.HasTile(localPlace))
+            {
+                tileWorldLocations.Add(localPlace);
+            }
+        }
+        int i = UnityEngine.Random.Range(0, tileWorldLocations.Count);
+        return tileWorldLocations[i];
     }
 }

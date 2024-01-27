@@ -81,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
                 break;
             case PlayerDebuff.Seduced:
                 StartCoroutine(SeducedCo(otherPlayer));
-                Debug.Log("Tickled");
+                Debug.Log("Seduced");
                 break;
             case PlayerDebuff.Pushed:
                 //StartCoroutine(PushedCo(otherPlayer));
