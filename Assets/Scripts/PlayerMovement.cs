@@ -13,11 +13,13 @@ public class PlayerMovement : MonoBehaviour
     private Vector3Int tilePos;
 
     [SerializeField] private TilesManager tilesManager;
+    private PlayersManager playersManager;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        playersManager = transform.parent.GetComponent<PlayersManager>();
     }
 
     void FixedUpdate()
@@ -28,9 +30,8 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         tilePos = GetTileBelowPlayer();
-        Debug.Log("Tile below player: " + tilePos);
         if (!tilesManager.tilemap.HasTile(tilePos))
-            Debug.Log("Player Falling");
+            playersManager.SetPlayerDead(gameObject);
         else
         {
             tilesManager.tilemap.SetTileFlags(tilePos, TileFlags.None);

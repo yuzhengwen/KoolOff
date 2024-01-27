@@ -6,6 +6,7 @@ public class Inventory : MonoBehaviour
 {
     private Queue<ICollectible> items;
     private readonly int maxItems = 2;
+    [SerializeField] private UI_Inventory uiInventory;
     private void Awake()
     {
         items = new();
@@ -23,6 +24,7 @@ public class Inventory : MonoBehaviour
         if(items.Count >= maxItems)
             items.Dequeue();
         items.Enqueue(item);
+        uiInventory.UpdateUI(gameObject, this);
     }
     public void UseItem()
     {
@@ -35,6 +37,7 @@ public class Inventory : MonoBehaviour
         {
             Debug.Log("No items in inventory");
         }
+        uiInventory.UpdateUI(gameObject, this);
     }
     public Queue<ICollectible> GetItems()
     {

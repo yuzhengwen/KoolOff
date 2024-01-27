@@ -41,9 +41,15 @@ public class UI_Inventory : MonoBehaviour
 
     public void UpdateUI(GameObject playerObj, Inventory inventory)
     {
-        for (int i = 0; i < noOfSlots; i++)
+        ICollectible[] items = inventory.GetItems().ToArray();
+        UI_Slot[] slots = slotsDict[playerObj];
+        foreach (UI_Slot slot in slots)
         {
-            slotsDict[playerObj][i].SetItem(inventory.GetItems().Dequeue());
+            slot.ClearSlot();
+        }
+        for (int i = 0; i < items.Length; i++)
+        {
+            slots[i].SetItem(items[i]);
         }
     }
 }

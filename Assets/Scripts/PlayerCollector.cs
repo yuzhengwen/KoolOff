@@ -10,11 +10,13 @@ public class PlayerCollector : MonoBehaviour
     public void OnEnable()
     {
         Feather.OnCollected += AddItemToInventory;
+        Heart.OnCollected += AddItemToInventory;
     }
 
     public void OnDisable()
     {
         Feather.OnCollected-= AddItemToInventory;
+        Heart.OnCollected -= AddItemToInventory;
     }
     private void AddItemToInventory(ICollectible item)
     {
