@@ -3,10 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class TilesManager : MonoBehaviour
 {
     public Tilemap tilemap;
+    [SerializeField] private TileBase crackedTile;
+    [SerializeField] private TileBase normalTile;
     private void Awake()
     {
         tilemap = GetComponent<Tilemap>();
@@ -19,6 +22,10 @@ public class TilesManager : MonoBehaviour
 
     IEnumerator DestroyTileCo(Vector3Int pos, float delay)
     {
+        Tile tile = tilemap.GetTile<Tile>(pos);
+        tilemap.SetTile(pos, crackedTile);
+        tilemap.RefreshTile(pos);
+
         yield return new WaitForSeconds(delay);
         DestroyTile(pos);
     }
@@ -31,13 +38,14 @@ public class TilesManager : MonoBehaviour
             StartCoroutine(RestoreTileCo(tile, pos));
         }
     }
-    IEnumerator RestoreTileCo(Tile tile, Vector3Int pos, float delay = 5.0f)
+    IEnumerator RestoreTileCo(Tile tile, Vector3Int pos, float delay = 2.5f)
     {
         yield return new WaitForSeconds(delay);
         RestoreTile(tile, pos);
     }
     public void RestoreTile(Tile tile, Vector3Int pos)
     {
-        tilemap.SetTile(pos, tile);
+        tilemap.SetTile(pos, normalTile);
+        tilemap.RefreshTile(pos);
     }
 }

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f395bd2e13b3144798e0cb0e079a75a, type: 3}
   m_Name: Heart
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 0}
-  itemName: 
-  abilityName: 
+  itemSprite: {fileID: 21300000, guid: 44329f618489f6a4e9319260305bd81c, type: 3}
+  itemName: Heart
+  abilityName: Seduce

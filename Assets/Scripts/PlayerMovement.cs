@@ -34,8 +34,8 @@ public class PlayerMovement : MonoBehaviour
             playersManager.SetPlayerDead(gameObject);
         else
         {
-            tilesManager.tilemap.SetTileFlags(tilePos, TileFlags.None);
-            tilesManager.tilemap.SetColor(tilePos, Color.red);
+            //tilesManager.tilemap.SetTileFlags(tilePos, TileFlags.None);
+            //tilesManager.tilemap.SetColor(tilePos, Color.red);
             tilesManager.DestroyTileDelayed(tilePos);
         }
     }
@@ -45,4 +45,15 @@ public class PlayerMovement : MonoBehaviour
     {
         return tilesManager.tilemap.WorldToCell(rb.position);
     }
+
+    public void SetDebuff(PlayerDebuff debuff)
+    {
+        Debug.Log(debuff.ToString());
+    }
+}
+public enum PlayerDebuff
+{
+    Tickled,
+    Seduced,
+    Pushed
 }
