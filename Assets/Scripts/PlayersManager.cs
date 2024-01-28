@@ -18,12 +18,17 @@ public class PlayersManager : MonoBehaviour
     }
     private void SpawnPlayers()
     {
-        var p1 = PlayerInput.Instantiate(playerPrefab, controlScheme: "Keyboard1", pairWithDevice: Keyboard.current);
-        var p2 = PlayerInput.Instantiate(playerPrefab, controlScheme: "Keyboard2", pairWithDevice: Keyboard.current);
-        var p3 = PlayerInput.Instantiate(playerPrefab, controlScheme: "Keyboard3", pairWithDevice: Keyboard.current);
-        p1.transform.SetParent(transform);
-        p2.transform.SetParent(transform);
-        p3.transform.SetParent(transform);
+        PlayerInput[] players = new PlayerInput[3];
+        players[0] = PlayerInput.Instantiate(playerPrefab, controlScheme: "Keyboard1", pairWithDevice: Keyboard.current);
+        players[0].defaultControlScheme = "Keyboard1";
+        players[1] = PlayerInput.Instantiate(playerPrefab, controlScheme: "Keyboard2", pairWithDevice: Keyboard.current);
+        players[1].defaultControlScheme = "Keyboard2";
+        //players[2] = PlayerInput.Instantiate(playerPrefab, controlScheme: "Keyboard3", pairWithDevice: Keyboard.current);
+        for (int i = 0 ;i <players.Length; i++)
+        {
+            players[i]?.transform.SetParent(transform);
+        }
+        
     }
     public void SetPlayerDead(GameObject player)
     {

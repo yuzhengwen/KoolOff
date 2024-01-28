@@ -12,6 +12,8 @@ public class UI_Inventory : MonoBehaviour
     private int noOfPlayers;
     private readonly int noOfSlots = 2;
 
+    private List<Inventory> inventories = new();
+
     void Start()
     {
         noOfPlayers = playerParent.transform.childCount;
@@ -35,8 +37,11 @@ public class UI_Inventory : MonoBehaviour
             }
             // get list of all players (key)
             playerObjs[i] = playerParent.transform.GetChild(i).gameObject;
+            inventories.Add(playerObjs[i].GetComponentInChildren<Inventory>());
+            inventories[i].OnInventoryChanged += UpdateUI;
             slotsDict.Add(playerObjs[i], slots);
         }
+        Debug.Log("Added " + slotsDict.Count);
     }
 
     public void UpdateUI(GameObject playerObj, Inventory inventory)
@@ -50,6 +55,13 @@ public class UI_Inventory : MonoBehaviour
         for (int i = 0; i < items.Length; i++)
         {
             slots[i].SetItem(items[i]);
+        }
+    }
+    private void OnDisable()
+    {
+        foreach (Inventory i in inventories)
+        {
+            i.OnInventoryChanged -= UpdateUI;
         }
     }
 }

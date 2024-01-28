@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,18 +8,19 @@ public class Inventory : MonoBehaviour
 {
     private Queue<ICollectible> items;
     private readonly int maxItems = 2;
-    private UI_Inventory uiInventory;
     private RotatingAim rotatingAim;
+    public event Action<GameObject, Inventory> OnInventoryChanged;
     private void Start()
     {
         items = new();
-        uiInventory = transform.parent.GetComponent<PlayersManager>().uiInventory;
-        rotatingAim = GetComponentInChildren<RotatingAim>();
+        rotatingAim = transform.parent.gameObject.GetComponentInChildren<RotatingAim>();
         UpdateRotatingAim();
     }
 
     private void UpdateRotatingAim()
     {
+        if (rotatingAim == null)
+            rotatingAim = transform.parent.gameObject.GetComponentInChildren<RotatingAim>();
         if (items.Count > 0)
         {
             if (!rotatingAim.isActiveAndEnabled)
@@ -36,22 +38,22 @@ public class Inventory : MonoBehaviour
         if (items.Count >= maxItems)
             items.Dequeue();
         items.Enqueue(item);
-        uiInventory.UpdateUI(gameObject, this);
+        OnInventoryChanged?.Invoke(transform.parent.gameObject, this);
         UpdateRotatingAim();
+        Debug.Log($"Added item to Inventory of {transform.parent.gameObject.name}");
     }
-    public void UseItem(InputAction.CallbackContext ctx)
+    public void UseItem(GameObject player)
     {
-        if (!ctx.performed) return;
         if (items.Count > 0)
         {
             ICollectible item = items.Dequeue();
-            item.Use();
+            item.Use(player, rotatingAim);
         }
         else
         {
             Debug.Log("No items in inventory");
         }
-        uiInventory.UpdateUI(gameObject, this);
+        OnInventoryChanged?.Invoke(player, this);
         UpdateRotatingAim();
     }
     public Queue<ICollectible> GetItems()

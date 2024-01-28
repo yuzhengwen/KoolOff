@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
@@ -19,12 +20,15 @@ public class PlayerMovement : MonoBehaviour
     private PlayerDebuff debuff = PlayerDebuff.None;
     private GameObject otherPlayer;
 
+    private Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         playersManager = transform.parent.GetComponent<PlayersManager>();
         tilesManager = playersManager.tilesManager;
+        animator = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -32,16 +36,21 @@ public class PlayerMovement : MonoBehaviour
         switch (debuff)
         {
             case PlayerDebuff.Tickled:
-                rb.velocity = Vector2.zero;
+                Debug.Log("Tickling");
+                float randX = UnityEngine.Random.Range(-1, 1);
+                float randY = UnityEngine.Random.Range(-1, 1);
+                Vector2 rand = new Vector2(randX, randY).normalized;
+                Debug.Log(rand);
+                float tickledSpeed = 0.3f;
+                transform.Translate(tickledSpeed * Time.deltaTime * rand);
                 break;
             case PlayerDebuff.Seduced:
-                rb.velocity = Vector2.zero;
+                if (otherPlayer == null) return;
                 Vector3 direction = (otherPlayer.transform.position - transform.position).normalized;
-                float slowSpeed = 0.5f;
-                rb.velocity = direction * slowSpeed;
+                float slowSpeed = 0.4f;
+                transform.Translate(slowSpeed * Time.deltaTime * direction);
                 break;
             case PlayerDebuff.Pushed:
-                rb.velocity = Vector2.zero;
                 break;
             case PlayerDebuff.None:
                 transform.Translate(speed * Time.deltaTime * movementInput);
@@ -56,6 +65,8 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
+        UpdateSprite();
+
         tilePos = GetTileBelowPlayer();
         if (!tilesManager.tilemap.HasTile(tilePos))
             playersManager.SetPlayerDead(gameObject);
@@ -63,6 +74,13 @@ public class PlayerMovement : MonoBehaviour
         {
             //tilesManager.DestroyTileDelayed(tilePos);
         }
+        if (movementInput == Vector2.zero) animator.SetBool("Moving", false);
+        else animator.SetBool("Moving", true);
+    }
+
+    private void UpdateSprite()
+    {
+        // TODO
     }
 
     public LayerMask terrain;
@@ -76,25 +94,21 @@ public class PlayerMovement : MonoBehaviour
         switch (debuff)
         {
             case PlayerDebuff.Tickled:
-                //StartCoroutine(TickledCo(otherPlayer));
-                Debug.Log("Tickled");
+                DebuffTimer(PlayerDebuff.Tickled, 1.0f, otherPlayer);
                 break;
             case PlayerDebuff.Seduced:
-                StartCoroutine(SeducedCo(otherPlayer));
-                Debug.Log("Seduced");
+                DebuffTimer(PlayerDebuff.Seduced, 1.5f, otherPlayer);
                 break;
             case PlayerDebuff.Pushed:
-                //StartCoroutine(PushedCo(otherPlayer));
                 break;
         }
     }
-
-    private IEnumerator SeducedCo(GameObject otherPlayer)
+    private async void DebuffTimer(PlayerDebuff debuff, float delay, GameObject otherPlayer)
     {
-        debuff = PlayerDebuff.Seduced;
+        this.debuff = debuff;
         this.otherPlayer = otherPlayer;
-        yield return new WaitForSeconds(1.5f);
-        debuff = PlayerDebuff.None;
+        await Task.Delay((int)delay * 1000);
+        this.debuff = this.debuff==debuff? PlayerDebuff.None: debuff;
     }
 }
 public enum PlayerDebuff

@@ -1,11 +1,15 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerCollector : MonoBehaviour
 {
     private Inventory inventory;
-    private void Start()
+    [SerializeField] private GameObject inventoryPrefab;
+    private void Awake()
     {
-        inventory = GetComponent<Inventory>();
+        GameObject invObj = Instantiate(inventoryPrefab);
+        invObj.transform.parent = transform;
+        inventory = invObj.GetComponent<Inventory>();
     }
     public void OnEnable()
     {
@@ -17,6 +21,11 @@ public class PlayerCollector : MonoBehaviour
     {
         Feather.OnCollected-= AddItemToInventory;
         Heart.OnCollected -= AddItemToInventory;
+    }
+    public void UseItem(InputAction.CallbackContext ctx)
+    {
+        if (!ctx.performed) return;
+        inventory.UseItem(gameObject);
     }
     private void AddItemToInventory(ICollectible item)
     {

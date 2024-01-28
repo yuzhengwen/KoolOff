@@ -5,6 +5,7 @@ public class Feather : MonoBehaviour, ICollectible
 {
     public static event Action<ICollectible> OnCollected;
     [SerializeField] private ItemSO itemSO;
+    [SerializeField] private GameObject featherProjectilePrefab;
     public void OnCollect(GameObject player)
     {
         OnCollected?.Invoke(this);
@@ -14,7 +15,10 @@ public class Feather : MonoBehaviour, ICollectible
     {
         return itemSO;
     }
-    public void Use()
+    public void Use(GameObject player, RotatingAim rotatingAim)
     {
+        GameObject projectile = Instantiate(featherProjectilePrefab, rotatingAim.transform.position, rotatingAim.GetRotation());
+        projectile.GetComponent<FeatherProjectile>().player = player;
+        Physics2D.IgnoreCollision(projectile.GetComponent<Collider2D>(), player.GetComponent<Collider2D>());   
     }
 }

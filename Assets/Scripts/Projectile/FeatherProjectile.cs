@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CupidsArrow : MonoBehaviour
+public class FeatherProjectile : MonoBehaviour
 {
     private Vector3 direction;
-    [SerializeField] private float speed = 0.6f;
+    [SerializeField] private float speed = 1.5f;
     public GameObject player;
     private void Start()
     {
@@ -21,7 +21,7 @@ public class CupidsArrow : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<PlayerMovement>().SetDebuff(PlayerDebuff.Seduced, player);
+            collision.GetComponent<PlayerMovement>().SetDebuff(PlayerDebuff.Tickled, player);
             Destroy(gameObject);
         }
     }

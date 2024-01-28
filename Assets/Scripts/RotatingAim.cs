@@ -6,7 +6,7 @@ public class RotatingAim : MonoBehaviour
 {
     private GameObject player;
     private float speed = 200f;
-    private void Start()
+    private void Awake()
     {
         player = transform.parent.gameObject;
     }
