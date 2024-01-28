@@ -10,6 +10,7 @@ public class Inventory : MonoBehaviour
     private readonly int maxItems = 2;
     private RotatingAim rotatingAim;
     public event Action<GameObject, Inventory> OnInventoryChanged;
+ 
     private void Start()
     {
         items = new();

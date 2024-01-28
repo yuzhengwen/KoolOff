@@ -36,11 +36,9 @@ public class PlayerMovement : MonoBehaviour
         switch (debuff)
         {
             case PlayerDebuff.Tickled:
-                Debug.Log("Tickling");
                 float randX = UnityEngine.Random.Range(-1, 1);
                 float randY = UnityEngine.Random.Range(-1, 1);
                 Vector2 rand = new Vector2(randX, randY).normalized;
-                Debug.Log(rand);
                 float tickledSpeed = 0.3f;
                 transform.Translate(tickledSpeed * Time.deltaTime * rand);
                 break;

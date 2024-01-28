@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 using UnityEngine.Tilemaps;
 
 public class PlayersManager : MonoBehaviour
@@ -12,24 +13,33 @@ public class PlayersManager : MonoBehaviour
     [SerializeField] public UI_Inventory uiInventory;
 
     [SerializeField] private GameObject playerPrefab;
+    private PlayerInputManager manager;
     private void Awake()
     {
+        manager = GetComponent<PlayerInputManager>();
         SpawnPlayers();
     }
     private void SpawnPlayers()
     {
-        PlayerInput[] players = new PlayerInput[3];
+        PlayerInput[] players = new PlayerInput[2];
         players[0] = PlayerInput.Instantiate(playerPrefab, controlScheme: "Keyboard1", pairWithDevice: Keyboard.current);
         players[0].defaultControlScheme = "Keyboard1";
         players[1] = PlayerInput.Instantiate(playerPrefab, controlScheme: "Keyboard2", pairWithDevice: Keyboard.current);
         players[1].defaultControlScheme = "Keyboard2";
         //players[2] = PlayerInput.Instantiate(playerPrefab, controlScheme: "Keyboard3", pairWithDevice: Keyboard.current);
-        for (int i = 0 ;i <players.Length; i++)
+        for (int i = 0; i < players.Length; i++)
         {
             players[i]?.transform.SetParent(transform);
         }
-        
+
     }
+
+    public void ConfigurePlayer(PlayerInput input)
+    {
+        input.transform.SetParent(transform);
+        Debug.Log("player joined");
+    }
+
     public void SetPlayerDead(GameObject player)
     {
         player.SetActive(false);
