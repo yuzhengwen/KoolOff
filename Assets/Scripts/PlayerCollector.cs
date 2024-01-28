@@ -15,12 +15,14 @@ public class PlayerCollector : MonoBehaviour
     {
         Feather.OnCollected += AddItemToInventory;
         Heart.OnCollected += AddItemToInventory;
+        Skull.OnCollected += AddItemToInventory;
     }
 
     public void OnDisable()
     {
         Feather.OnCollected-= AddItemToInventory;
         Heart.OnCollected -= AddItemToInventory;
+        Skull.OnCollected -= AddItemToInventory;
     }
     public void UseItem(InputAction.CallbackContext ctx)
     {

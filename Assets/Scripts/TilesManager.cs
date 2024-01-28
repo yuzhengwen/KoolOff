@@ -15,7 +15,7 @@ public class TilesManager : MonoBehaviour
         tilemap = GetComponent<Tilemap>();
     }
     
-    public void DestroyTileDelayed(Vector3Int pos, float delay = 1.0f)
+    public void DestroyTileDelayed(Vector3Int pos, float delay = 1.5f)
     {
         StartCoroutine(DestroyTileCo(pos, delay));
     }

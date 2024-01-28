@@ -50,7 +50,11 @@ public class PlayerMovement : MonoBehaviour
                 float slowSpeed = 0.4f;
                 transform.Translate(slowSpeed * Time.deltaTime * direction);
                 break;
-            case PlayerDebuff.Pushed:
+            case PlayerDebuff.Feared:
+                if (otherPlayer == null) return;
+                Vector3 fearDir = -(otherPlayer.transform.position - transform.position).normalized;
+                float fearSpeed = 0.4f;
+                transform.Translate(fearSpeed * Time.deltaTime * fearDir);
                 break;
             case PlayerDebuff.None:
                 transform.Translate(speed * Time.deltaTime * movementInput);
@@ -72,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
             playersManager.SetPlayerDead(gameObject);
         else
         {
-            //tilesManager.DestroyTileDelayed(tilePos);
+            tilesManager.DestroyTileDelayed(tilePos);
         }
         if (movementInput == Vector2.zero) animator.SetBool("Moving", false);
         else animator.SetBool("Moving", true);
@@ -99,7 +103,8 @@ public class PlayerMovement : MonoBehaviour
             case PlayerDebuff.Seduced:
                 DebuffTimer(PlayerDebuff.Seduced, 1.5f, otherPlayer);
                 break;
-            case PlayerDebuff.Pushed:
+            case PlayerDebuff.Feared:
+                DebuffTimer(PlayerDebuff.Feared, 1.5f, otherPlayer);
                 break;
         }
     }
@@ -115,6 +120,6 @@ public enum PlayerDebuff
 {
     Tickled,
     Seduced,
-    Pushed,
+    Feared,
     None
 }
