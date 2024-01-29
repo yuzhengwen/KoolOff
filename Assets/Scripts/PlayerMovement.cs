@@ -17,23 +17,37 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]private PlayersManager playersManager;
 
     // debuffs
-    private PlayerState debuff = PlayerState.Normal;
+    private PlayerState state = PlayerState.Normal;
     private GameObject otherPlayer;
 
     private Animator animator;
 
-    // Start is called before the first frame update
+    #region Components to disable on death
+    private SpriteRenderer spriteRenderer;
+    private Collider2D collider;
+    private GameObject child;
+    #endregion
     void Start()
     {
         tilesManager = FindObjectOfType<TilesManager>();
         playersManager = FindObjectOfType<PlayersManager>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-    }
 
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        collider = GetComponent<Collider2D>();
+        child = transform.GetChild(0).gameObject;
+    }
+    public void OnMove(InputAction.CallbackContext ctx) => movementInput = ctx.ReadValue<Vector2>();
+    public void Counter(InputAction.CallbackContext ctx)
+    {
+        if (!ctx.performed) return;
+        Debug.Log("FULL COUNTER");
+    }
     void FixedUpdate()
     {
-        switch (debuff)
+        if (state == PlayerState.Dead) return;
+        switch (state)
         {
             case PlayerState.Tickled:
                 float randX = UnityEngine.Random.Range(-1, 1);
@@ -59,14 +73,9 @@ public class PlayerMovement : MonoBehaviour
                 break;
         }
     }
-    public void OnMove(InputAction.CallbackContext ctx) => movementInput = ctx.ReadValue<Vector2>();
-    public void Counter(InputAction.CallbackContext ctx)
-    {
-        if (!ctx.performed) return;
-        Debug.Log("FULL COUNTER");
-    }
     private void Update()
     {
+        if (state == PlayerState.Dead) return;
         UpdateSprite();
 
         tilePos = GetTileBelowPlayer();
@@ -79,7 +88,6 @@ public class PlayerMovement : MonoBehaviour
         if (movementInput == Vector2.zero) animator.SetBool("Moving", false);
         else animator.SetBool("Moving", true);
     }
-
     private void UpdateSprite()
     {
         // TODO
@@ -106,12 +114,28 @@ public class PlayerMovement : MonoBehaviour
                 break;
         }
     }
+    public void SetState(PlayerState state)
+    {
+        this.state = state;
+        if (state == PlayerState.Dead)
+        {
+            spriteRenderer.enabled = false;
+            collider.enabled = false;
+            child.SetActive(false);
+        }
+        else
+        {
+            spriteRenderer.enabled = true;
+            collider.enabled = true;
+            child.SetActive(true);
+        }
+    }
     private async void DebuffTimer(PlayerState debuff, float delay, GameObject otherPlayer)
     {
-        this.debuff = debuff;
+        state = debuff;
         this.otherPlayer = otherPlayer;
         await Task.Delay((int)delay * 1000);
-        this.debuff = this.debuff==debuff? PlayerState.Normal: debuff;
+        state = (state==debuff && state!=PlayerState.Dead)? PlayerState.Normal: debuff;
     }
 }
 public enum PlayerState

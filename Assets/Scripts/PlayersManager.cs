@@ -7,7 +7,6 @@ public class PlayersManager : MonoBehaviour
 {
     private Vector3Int respawnPos = new Vector3Int(0, 0, 0);
     [SerializeField] public TilesManager tilesManager;
-    [SerializeField] public GameObject ui_bar;
     [SerializeField] public GameObject ui_inventory;
 
     [SerializeField] private GameObject playerPrefab;
@@ -31,7 +30,8 @@ public class PlayersManager : MonoBehaviour
 
     public void SetPlayerDead(GameObject player)
     {
-        player.SetActive(false);
+        //player.SetActive(false);
+        player.GetComponent<PlayerMovement>().SetState(PlayerState.Dead);
         StartCoroutine(RespawnPlayerCo(player));
     }
     IEnumerator RespawnPlayerCo(GameObject player, float delay = 3.0f)
@@ -39,8 +39,9 @@ public class PlayersManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         player.transform.position = tilesManager.tilemap.CellToWorld(tilesManager.getRandomTileLocation());
-        player.SetActive(true);
-        string control= player.GetComponent<PlayerInput>().currentControlScheme;
-        player.GetComponent<PlayerInput>().SwitchCurrentControlScheme(control, Keyboard.current);
+        //player.SetActive(true);
+        player.GetComponent<PlayerMovement>().SetState(PlayerState.Normal);
+        //string control= player.GetComponent<PlayerInput>().currentControlScheme;
+        //player.GetComponent<PlayerInput>().SwitchCurrentControlScheme(control, Keyboard.current);
     }
 }
