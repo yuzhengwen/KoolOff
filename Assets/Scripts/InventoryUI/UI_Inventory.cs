@@ -2,46 +2,40 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class UI_Inventory : MonoBehaviour
 {
     private Dictionary<GameObject, UI_Slot[]> slotsDict = new();
 
     [SerializeField] private GameObject playerDisplayPrefab;
-    [SerializeField] private GameObject playerParent;
-    private int noOfPlayers;
     private readonly int noOfSlots = 2;
 
-    private List<Inventory> inventories = new();
-
-    void Start()
+    private readonly List<Inventory> inventories = new(); // all inventories that are being tracked
+    public void AddPlayer(PlayerInput playerInput)
     {
-        noOfPlayers = playerParent.transform.childCount;
-        Debug.Log(noOfPlayers + " Players");
-        InstantiateHUD();
+        Debug.Log("Add player");
+        GameObject playerObj = playerInput.gameObject;
+        TrackInventory(playerObj);
+        AddPlayerSlots(playerObj);
     }
 
-    private void InstantiateHUD()
+    private void AddPlayerSlots(GameObject playerObj)
     {
-        GameObject[] playerObjs = new GameObject[noOfPlayers];
-        for (int i = 0; i < noOfPlayers; i++)
+        UI_Slot[] slots = new UI_Slot[noOfSlots];
+        GameObject playerDisplayObj = transform.GetChild(inventories.Count - 1).gameObject;
+        for (int j = 0; j < noOfSlots; j++)
         {
-            // create an array of 2 slots per player
-            UI_Slot[] slots = new UI_Slot[noOfSlots];
-            GameObject playerDisplay = Instantiate(playerDisplayPrefab, transform);
-            playerDisplay.SetActive(true);
-
-            for (int j = 0; j < noOfSlots; j++)
-            {
-                slots[j] = playerDisplay.transform.GetChild(0).GetChild(j).GetComponent<UI_Slot>();
-            }
-            // get list of all players (key)
-            playerObjs[i] = playerParent.transform.GetChild(i).gameObject;
-            inventories.Add(playerObjs[i].GetComponentInChildren<Inventory>());
-            inventories[i].OnInventoryChanged += UpdateUI;
-            slotsDict.Add(playerObjs[i], slots);
+            slots[j] = playerDisplayObj.transform.GetChild(0).GetChild(j).GetComponent<UI_Slot>();
         }
-        Debug.Log("Added " + slotsDict.Count);
+        slotsDict.Add(playerObj, slots);
+    }
+
+    private void TrackInventory(GameObject playerObj)
+    {
+        Inventory playerInv = playerObj.GetComponentInChildren<Inventory>();
+        inventories.Add(playerInv);
+        playerInv.OnInventoryChanged += UpdateUI;
     }
 
     public void UpdateUI(GameObject playerObj, Inventory inventory)

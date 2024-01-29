@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Hitbox : MonoBehaviour
 {
-    public GameObject player;
+    public GameObject player; // player that sent the projectile
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<PlayerMovement>().SetDebuff(PlayerDebuff.Feared, player);
+            Debug.Log("HIT");
+            collision.GetComponent<PlayerMovement>().SetDebuff(PlayerState.Feared, player);
             Destroy(gameObject);
         }
     }

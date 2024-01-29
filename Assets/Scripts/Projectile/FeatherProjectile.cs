@@ -6,7 +6,7 @@ public class FeatherProjectile : MonoBehaviour
 {
     private Vector3 direction;
     [SerializeField] private float speed = 1.5f;
-    public GameObject player;
+    public GameObject player; // player that sent the projectile
     private void Start()
     {
         direction = new Vector3(0, 1, 0);
@@ -21,7 +21,7 @@ public class FeatherProjectile : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<PlayerMovement>().SetDebuff(PlayerDebuff.Tickled, player);
+            collision.GetComponent<PlayerMovement>().SetDebuff(PlayerState.Tickled, player);
             Destroy(gameObject);
         }
     }

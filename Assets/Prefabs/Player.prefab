@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 170071663282953884}
   - component: {fileID: 1068485900764047840}
   - component: {fileID: 328707374490650638}
+  - component: {fileID: 1400352615854166414}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -51,6 +52,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f623e7c8d11f5b4f93dd79979bacd08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tilesManager: {fileID: 0}
+  playersManager: {fileID: 0}
   terrain:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -93,7 +96,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d62d7f1f80bfa184a94d67be63854150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryPrefab: {fileID: 7330412959068290050, guid: b1232ec006121954dbca7164c67c6f8a, type: 3}
 --- !u!70 &4172073391656177662
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -280,6 +282,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1400352615854166414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2523413713743693463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e12747a8134c10644971cfb55634273b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6650850957614062781
 GameObject:
   m_ObjectHideFlags: 0
