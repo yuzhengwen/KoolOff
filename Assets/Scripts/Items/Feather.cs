@@ -18,7 +18,7 @@ public class Feather : MonoBehaviour, ICollectible
     {
         if (!player.activeSelf) return; 
         GameObject projectile = Instantiate(featherProjectilePrefab, rotatingAim.transform.position, rotatingAim.GetRotation());
-        projectile.GetComponent<Hitbox>().player = player;
+        projectile.GetComponent<FeatherProjectile>().player = player;
         Physics2D.IgnoreCollision(projectile.GetComponent<Collider2D>(), player.GetComponent<Collider2D>());   
     }
 }

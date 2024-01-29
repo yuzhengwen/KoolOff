@@ -6,7 +6,7 @@ public class CupidsArrow : MonoBehaviour
 {
     private Vector3 direction;
     [SerializeField] private float speed = 0.6f;
-    public GameObject player;
+    public GameObject player; // player that sent the projectile
     private void Start()
     {
         direction = new Vector3(0, 1, 0);

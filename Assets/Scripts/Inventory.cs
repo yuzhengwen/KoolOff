@@ -41,7 +41,6 @@ public class Inventory : MonoBehaviour
         items.Enqueue(item);
         OnInventoryChanged?.Invoke(gameObject, this);
         UpdateRotatingAim();
-        Debug.Log($"Added item to Inventory of {gameObject.name}");
     }
     public void UseItem(GameObject player)
     {

@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     #region Components to disable on death
     private SpriteRenderer spriteRenderer;
-    private Collider2D collider;
+    private new Collider2D collider;
     private GameObject child;
     #endregion
     void Start()
@@ -83,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
             playersManager.SetPlayerDead(gameObject);
         else
         {
-            tilesManager.DestroyTileDelayed(tilePos);
+            //tilesManager.DestroyTileDelayed(tilePos);
         }
         if (movementInput == Vector2.zero) animator.SetBool("Moving", false);
         else animator.SetBool("Moving", true);
