@@ -16,8 +16,12 @@ public class Heart : MonoBehaviour, ICollectible
     }
     public void Use(GameObject player, RotatingAim rotatingAim)
     {
-        GameObject arrow = Instantiate(cupidsArrowPrefab, rotatingAim.transform.position, rotatingAim.GetRotation());
-        arrow.GetComponent<CupidsArrow>().player = player;
-        Physics2D.IgnoreCollision(arrow.GetComponent<Collider2D>(), player.GetComponent<Collider2D>());
+        for (int i = 0; i < 3; i++)
+        {
+            GameObject arrow = Instantiate(cupidsArrowPrefab, rotatingAim.transform.position, rotatingAim.GetRotation());
+            arrow.transform.Rotate(0, 0, -30 + 30 * i);
+            arrow.GetComponent<CupidsArrow>().player = player;
+            Physics2D.IgnoreCollision(arrow.GetComponent<Collider2D>(), player.GetComponent<Collider2D>());
+        }
     }
 }

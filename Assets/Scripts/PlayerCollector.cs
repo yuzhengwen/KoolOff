@@ -11,7 +11,8 @@ public class PlayerCollector : MonoBehaviour
     public void UseItem(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
-        inventory.UseItem(gameObject);
+        if (GetComponent<PlayerMovement>().GetState() == PlayerState.Normal) 
+            inventory.UseItem(gameObject);
     }
     public void AddItemToInventory(ICollectible item)
     {

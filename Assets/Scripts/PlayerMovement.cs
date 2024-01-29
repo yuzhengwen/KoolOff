@@ -130,6 +130,10 @@ public class PlayerMovement : MonoBehaviour
             child.SetActive(true);
         }
     }
+    public PlayerState GetState()
+    {
+        return state;
+    }
     private async void DebuffTimer(PlayerState debuff, float delay, GameObject otherPlayer)
     {
         state = debuff;
