@@ -3,12 +3,11 @@ using UnityEngine;
 
 public class Skull : MonoBehaviour, ICollectible
 {
-    public static event Action<ICollectible> OnCollected;
     [SerializeField] private ItemSO itemSO;
     [SerializeField] private GameObject hitboxPrefab;
     public void OnCollect(GameObject player)
     {
-        OnCollected?.Invoke(this);
+        player.GetComponent<PlayerCollector>().AddItemToInventory(this);
         Destroy(gameObject);
     }
     public ItemSO GetItemSO()

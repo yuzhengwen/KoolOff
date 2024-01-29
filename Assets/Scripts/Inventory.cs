@@ -14,14 +14,14 @@ public class Inventory : MonoBehaviour
     private void Start()
     {
         items = new();
-        rotatingAim = transform.parent.gameObject.GetComponentInChildren<RotatingAim>();
+        rotatingAim = GetComponentInChildren<RotatingAim>();
         UpdateRotatingAim();
     }
 
     private void UpdateRotatingAim()
     {
         if (rotatingAim == null)
-            rotatingAim = transform.parent.gameObject.GetComponentInChildren<RotatingAim>();
+            rotatingAim = GetComponentInChildren<RotatingAim>();
         if (items.Count > 0)
         {
             if (!rotatingAim.isActiveAndEnabled)
@@ -39,9 +39,9 @@ public class Inventory : MonoBehaviour
         if (items.Count >= maxItems)
             items.Dequeue();
         items.Enqueue(item);
-        OnInventoryChanged?.Invoke(transform.parent.gameObject, this);
+        OnInventoryChanged?.Invoke(gameObject, this);
         UpdateRotatingAim();
-        Debug.Log($"Added item to Inventory of {transform.parent.gameObject.name}");
+        Debug.Log($"Added item to Inventory of {gameObject.name}");
     }
     public void UseItem(GameObject player)
     {

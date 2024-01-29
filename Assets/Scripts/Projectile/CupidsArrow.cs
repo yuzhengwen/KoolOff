@@ -21,7 +21,7 @@ public class CupidsArrow : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<PlayerMovement>().SetDebuff(PlayerDebuff.Seduced, player);
+            collision.GetComponent<PlayerMovement>().SetDebuff(PlayerState.Seduced, player);
             Destroy(gameObject);
         }
     }

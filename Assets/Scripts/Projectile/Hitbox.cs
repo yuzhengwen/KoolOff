@@ -9,7 +9,7 @@ public class Hitbox : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<PlayerMovement>().SetDebuff(PlayerDebuff.Feared, player);
+            collision.GetComponent<PlayerMovement>().SetDebuff(PlayerState.Feared, player);
             Destroy(gameObject);
         }
     }

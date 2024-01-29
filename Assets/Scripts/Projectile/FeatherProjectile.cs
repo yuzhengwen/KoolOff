@@ -21,7 +21,7 @@ public class FeatherProjectile : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<PlayerMovement>().SetDebuff(PlayerDebuff.Tickled, player);
+            collision.GetComponent<PlayerMovement>().SetDebuff(PlayerState.Tickled, player);
             Destroy(gameObject);
         }
     }
