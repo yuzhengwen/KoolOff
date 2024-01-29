@@ -83,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
             playersManager.SetPlayerDead(gameObject);
         else
         {
-            //tilesManager.DestroyTileDelayed(tilePos);
+            tilesManager.DestroyTileDelayed(tilePos);
         }
         if (movementInput == Vector2.zero) animator.SetBool("Moving", false);
         else animator.SetBool("Moving", true);
